@@ -30,7 +30,7 @@ const SVG = React.createClass({
 SVG.Path = React.createClass({
   render: function() {
     return (
-      <path d={this.props.pathData} transform={this.props.transform}/>
+      <path d={this.props.pathData} transform={this.props.transform} opacity={this.props.opacity}/>
     );
   }
 });

@@ -28,8 +28,8 @@ var App = React.createClass({
   render() {
     var drumPlan = new DrumPlan(this.state.numBoards, TwoByFour);
     return (
-      <div>
-        <div>
+      <div className="drumApp">
+        <div className="controls">
           <label>
             Number of boards:
             <input type="number" defaultValue={this.state.numBoards} min={3} onChange={this.handleChange}/>
@@ -37,11 +37,13 @@ var App = React.createClass({
           <NumberDisplay label="Radius" value={drumPlan.radius}/>
           <NumberDisplay label="Cut Angle" value={drumPlan.cutAngle}/>
         </div>
-        <div>
-          <BoardDiagram board={TwoByFour} cutAngle={drumPlan.cutAngle}/>
-        </div>
-        <div>
-          <DrumDiagram drumPlan={drumPlan} board={TwoByFour}/>
+        <div className="diagrams">
+          <div>
+            <BoardDiagram board={TwoByFour} cutAngle={drumPlan.cutAngle}/>
+          </div>
+          <div>
+            <DrumDiagram drumPlan={drumPlan} board={TwoByFour}/>
+          </div>
         </div>
       </div>
     );
