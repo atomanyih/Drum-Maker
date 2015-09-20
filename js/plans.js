@@ -11,8 +11,11 @@ export function DrumPlan(numBoards, board) {
 export function Board(length, height) {
   return {
     length: length,
-    height: height
+    height: height,
+    flipped() {
+      return new Board(height, length)
+    }
   };
 }
 
-export const TwoByFour = new Board(3.5, 1.5);
+export const TwoByFour = new Board(3.5, 1.5).flipped();

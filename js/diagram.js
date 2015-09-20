@@ -12,18 +12,17 @@ const CutBoardPath = React.createClass({
 
     var cutAngle = this.props.cutAngle;
 
-    var cutOffset = height *  Math.tan(cutAngle / 180 * Math.PI);
+    var cutOffset = height * Math.tan(cutAngle / 180 * Math.PI);
 
-    var pathData = [
-      'M', -width / 2, 0,
-      'L', width / 2, 0,
-      'L', width / 2 - cutOffset, height,
-      'L', cutOffset - width / 2, height,
-      'L', -width / 2, 0,
-    ].join(' ');
+    var pathData = SVG.startPath()
+      .moveTo(-width / 2, 0)
+      .lineTo(width / 2, 0)
+      .lineTo(width / 2 - cutOffset, height)
+      .lineTo(cutOffset - width / 2, height)
+      .lineTo(-width / 2, 0);
 
     return (
-      <SVG.Path pathData={pathData} transform={this.props.transform}/>
+      <SVG.Path pathData={pathData.toString()} transform={this.props.transform}/>
     );
   }
 });
@@ -33,16 +32,15 @@ const BoardPath = React.createClass({
     var width = this.props.board.length * this.props.unit;
     var height = this.props.board.height * this.props.unit;
 
-    var pathData = [
-      'M', -width / 2, 0,
-      'L', width / 2, 0,
-      'L', width / 2, height,
-      'L', -width / 2, height,
-      'L', -width / 2, 0,
-    ].join(' ');
+    var pathData = SVG.startPath()
+      .moveTo(-width / 2, 0)
+      .lineTo(width / 2, 0)
+      .lineTo(width / 2, height)
+      .lineTo(-width / 2, height)
+      .lineTo(-width / 2, 0);
 
     return (
-      <SVG.Path pathData={pathData} transform={this.props.transform} opacity={this.props.opacity}/>
+      <SVG.Path pathData={pathData.toString()} transform={this.props.transform} opacity={this.props.opacity}/>
     );
   }
 });
@@ -62,10 +60,25 @@ export const BoardDiagram = React.createClass({
       <SVG width={width} height={height}>
         <BoardPath unit={60} board={this.props.board} transform={`translate(${width/2},0)`} opacity={0.2}/>
         <CutBoardPath unit={60}
-                   board={this.props.board}
-                   cutAngle={this.props.cutAngle}
-                   transform={`translate(${width/2},0)`}/>
+                      board={this.props.board}
+                      cutAngle={this.props.cutAngle}
+                      transform={`translate(${width/2},0)`}/>
       </SVG>
+    );
+  }
+});
+
+const UnitPath = React.createClass({
+  render() {
+    var measuredAmount = this.props.unit * 12;
+    const pathData = SVG.startPath()
+      .moveTo(4, 0)
+      .lineTo(4, 4)
+      .lineTo(4 + measuredAmount, 4)
+      .lineTo(4 + measuredAmount, 0);
+
+    return (
+      <SVG.Path pathData={pathData.toString()}/>
     );
   }
 });
@@ -73,8 +86,8 @@ export const BoardDiagram = React.createClass({
 export const DrumDiagram = React.createClass({
   getDefaultProps: function () {
     return {
-      width: 256,
-      height: 256,
+      width: 512,
+      height: 512,
     }
   },
 
@@ -83,10 +96,11 @@ export const DrumDiagram = React.createClass({
     const {cutAngle, numBoards, radius} = drumPlan;
     let boards = [];
 
-    const unit = height / (2*radius);
+    const unit = 10;
+    const centerY = radius * unit;
 
     for (let i = 0; i < numBoards; i++) {
-      let transform = `translate(${width/2}) rotate(${360 / numBoards * i},0,${height / 2})`;
+      let transform = `translate(${width / 2},${height / 2 - centerY}) rotate(${360 / numBoards * i},0,${centerY})`;
 
       boards.push(
         <CutBoardPath unit={unit} board={board} cutAngle={cutAngle} transform={transform}/>
@@ -95,6 +109,7 @@ export const DrumDiagram = React.createClass({
 
     return (
       <SVG width={width} height={height}>
+        <UnitPath unit={unit}/>
         {boards}
       </SVG>
     );

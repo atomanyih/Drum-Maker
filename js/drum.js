@@ -36,11 +36,11 @@ var App = React.createClass({
           </label>
           <NumberDisplay label="Radius" value={drumPlan.radius}/>
           <NumberDisplay label="Cut Angle" value={drumPlan.cutAngle}/>
+          <BoardDiagram board={TwoByFour} cutAngle={drumPlan.cutAngle}/>
+
         </div>
         <div className="diagrams">
-          <div>
-            <BoardDiagram board={TwoByFour} cutAngle={drumPlan.cutAngle}/>
-          </div>
+
           <div>
             <DrumDiagram drumPlan={drumPlan} board={TwoByFour}/>
           </div>
