@@ -54,7 +54,7 @@ var App = React.createClass({
   getInitialState() {
     return {
       numBoards: 10,
-      pattern: 'Alternating',
+      pattern: 'Uniform',
     }
   },
   handleChange(key, event) {
@@ -66,14 +66,14 @@ var App = React.createClass({
     var drumPlan = new DrumPlan(this.state.numBoards, TwoByFour, this.state.pattern == 'Alternating');
     return (
       <div className="drumApp">
-        <div>
+        <div className="diagrams">
+          <BoardDiagram board={TwoByFour} cutAngle={drumPlan.cutAngle}/>
+          <DrumDiagram drumPlan={drumPlan} board={TwoByFour}/>
+        </div>
+        <div className="controls">
           <Controls handleChange={this.handleChange} numBoards={this.state.numBoards} pattern={this.state.pattern}/>
           <NumberDisplay label="Radius" value={drumPlan.radius}/>
           <NumberDisplay label="Cut Angle" value={drumPlan.cutAngle}/>
-          <BoardDiagram board={TwoByFour} cutAngle={drumPlan.cutAngle}/>
-        </div>
-        <div>
-          <DrumDiagram drumPlan={drumPlan} board={TwoByFour}/>
         </div>
       </div>
     );
