@@ -143,7 +143,7 @@ export const DrumDiagram = React.createClass({
 
   render() {
     const {width, height, board, drumPlan} = this.props;
-    const {cutAngle, numBoards, radius} = drumPlan;
+    const {cutAngle, numBoards, radius, alternating} = drumPlan;
     let boards = [];
 
     const unit = 10;
@@ -152,9 +152,16 @@ export const DrumDiagram = React.createClass({
     for (let i = 0; i < numBoards; i++) {
       let transform = `translate(${width / 2},${height / 2 - centerY}) rotate(${360 / numBoards * i},0,${centerY})`;
 
-      boards.push(
-        <CutBoardPath unit={unit} board={board} cutAngle={cutAngle} transform={transform}/>
-      );
+      if (alternating && (i % 2)) {
+        boards.push(
+          <BoardPath unit={unit} board={board} transform={transform}/>
+        );
+      } else {
+        boards.push(
+          <CutBoardPath unit={unit} board={board} cutAngle={cutAngle} transform={transform}/>
+        );
+      }
+
     }
 
     return (

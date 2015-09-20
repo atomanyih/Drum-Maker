@@ -22,34 +22,52 @@ var Controls = React.createClass({
     handleChange: React.PropTypes.func,
   },
   render() {
-    const {numBoards, handleChange} = this.props;
+    const {numBoards, handleChange, pattern} = this.props;
+
+    function handleBoardChange(event) {
+      handleChange('numBoards', event);
+    }
+
+    function handlePatternChange(event) {
+      handleChange('pattern', event);
+    }
 
     return (
       <div>
         <label>
           Number of boards:
-          <input type="number" defaultValue={numBoards} min={3} onChange={handleChange}/>
+          <input type="number" defaultValue={numBoards} min={3} onChange={handleBoardChange}/>
+        </label>
+        <label>
+          Board pattern:
+          <select defaultValue={pattern} onChange={handlePatternChange}>
+            <option>Uniform</option>
+            <option>Alternating</option>
+          </select>
         </label>
       </div>
     );
   }
-})
+});
 
 var App = React.createClass({
   getInitialState() {
     return {
-      numBoards: 4
+      numBoards: 10,
+      pattern: 'Alternating',
     }
   },
-  handleChange(event) {
-    this.setState({numBoards: event.target.value});
+  handleChange(key, event) {
+    let state = {};
+    state[key] = event.target.value;
+    this.setState(state);
   },
   render() {
-    var drumPlan = new DrumPlan(this.state.numBoards, TwoByFour);
+    var drumPlan = new DrumPlan(this.state.numBoards, TwoByFour, this.state.pattern == 'Alternating');
     return (
       <div className="drumApp">
         <div>
-          <Controls handleChange={this.handleChange} numBoards={this.state.numBoards}/>
+          <Controls handleChange={this.handleChange} numBoards={this.state.numBoards} pattern={this.state.pattern}/>
           <NumberDisplay label="Radius" value={drumPlan.radius}/>
           <NumberDisplay label="Cut Angle" value={drumPlan.cutAngle}/>
           <BoardDiagram board={TwoByFour} cutAngle={drumPlan.cutAngle}/>

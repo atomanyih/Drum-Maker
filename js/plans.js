@@ -1,10 +1,14 @@
-export function DrumPlan(numBoards, board) {
+export function DrumPlan(numBoards, board, alternating) {
   var radius = board.length / ( 2 * Math.tan(Math.PI / numBoards));
   var cutAngle = 90 - 90 * (numBoards - 2) / numBoards;
+  if(alternating) {
+    cutAngle = cutAngle * 2;
+  }
   return {
     radius: radius,
     cutAngle: cutAngle,
-    numBoards: numBoards
+    numBoards: numBoards,
+    alternating: alternating
   };
 }
 
