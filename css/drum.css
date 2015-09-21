@@ -1,3 +1,7 @@
 .diagrams {
     display: flex;
 }
+
+.diagrams .details svg {
+    display: block;
+}

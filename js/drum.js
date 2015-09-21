@@ -1,6 +1,6 @@
 var React = require('react');
 var {DrumPlan, Board, TwoByFour} = require('./plans');
-var {BoardDiagram, DrumDiagram} = require('./diagram');
+var {BoardDiagram, DrumDiagram, JointDiagram} = require('./diagram');
 
 var NumberDisplay = React.createClass({
   render() {
@@ -67,7 +67,10 @@ var App = React.createClass({
     return (
       <div className="drumApp">
         <div className="diagrams">
-          <BoardDiagram board={TwoByFour} cutAngle={drumPlan.cutAngle}/>
+          <div className="details">
+            <BoardDiagram board={TwoByFour} cutAngle={drumPlan.cutAngle}/>
+            <JointDiagram board={TwoByFour} drumPlan={drumPlan}/>
+          </div>
           <DrumDiagram drumPlan={drumPlan} board={TwoByFour}/>
         </div>
         <div className="controls">
