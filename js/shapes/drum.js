@@ -4,8 +4,8 @@ var BoardPath = require('./board');
 
 export default React.createClass({
   render() {
-    const {board, drumPlan, unit} = this.props;
-    const {cutAngle, numBoards, radius, alternating} = drumPlan;
+    const {drumPlan, unit} = this.props;
+    const {cutAngle, numBoards, radius, alternating, board} = drumPlan;
 
     const centerY = radius * unit;
 

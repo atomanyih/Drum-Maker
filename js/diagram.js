@@ -22,9 +22,9 @@ export const BoardDiagram = React.createClass({
                    transform={`translate(${width/2},0)`}
                    opacity={0.2}/>
         <BoardPath unit={60}
-                      board={board}
-                      cutAngle={cutAngle}
-                      transform={`translate(${width/2},0)`}/>
+                   board={board}
+                   cutAngle={cutAngle}
+                   transform={`translate(${width/2},0)`}/>
       </SVG>
     );
   }
@@ -39,7 +39,7 @@ export const DrumDiagram = React.createClass({
   },
 
   render() {
-    const {width, height, board, drumPlan} = this.props;
+    const {width, height, drumPlan} = this.props;
     const {radius} = drumPlan;
 
     const unit = 10;
@@ -50,9 +50,8 @@ export const DrumDiagram = React.createClass({
         <GridPath unit={unit} width={width} height={height}/>
 
         <DrumPath transform={`translate(${width / 2},${height / 2 - centerY})`}
-                     board={board}
-                     drumPlan={drumPlan}
-                     unit={unit}/>
+                  drumPlan={drumPlan}
+                  unit={unit}/>
       </SVG>
     );
   }
@@ -67,11 +66,11 @@ export const JointDiagram = React.createClass({
   },
 
   render() {
-    const {width, height, board, drumPlan} = this.props;
+    const {width, height, drumPlan} = this.props;
 
     return (
       <SVG width={width} height={height}>
-        <DrumPath transform={`translate(${width / 2},1)`} board={board} drumPlan={drumPlan} unit={60}/>
+        <DrumPath transform={`translate(${width / 2},1)`} drumPlan={drumPlan} unit={60}/>
       </SVG>
     );
   }

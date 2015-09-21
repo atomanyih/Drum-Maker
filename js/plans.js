@@ -8,7 +8,8 @@ export function DrumPlan(numBoards, board, alternating) {
     radius: radius,
     cutAngle: cutAngle,
     numBoards: numBoards,
-    alternating: alternating
+    alternating: alternating,
+    board: board,
   };
 }
 
