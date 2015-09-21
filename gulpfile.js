@@ -22,7 +22,7 @@ gulp.task('build-js', function() {
 
 gulp.task('setup-watchers', function(callback) {
   process.env.WEBPACK_WATCH = true;
-  gulp.watch(['js/*'], ['build-js']);
+  gulp.watch(['js/**/*'], ['build-js']);
   callback();
 });
 gulp.task('webserver', ['build-js'], function() {
