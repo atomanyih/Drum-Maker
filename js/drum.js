@@ -53,7 +53,7 @@ var Controls = React.createClass({
 var App = React.createClass({
   getInitialState() {
     return {
-      numBoards: 10,
+      numBoards: 20,
       pattern: 'Uniform',
     }
   },
